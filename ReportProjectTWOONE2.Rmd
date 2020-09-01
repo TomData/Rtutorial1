@@ -1,0 +1,195 @@
+````
+---
+title: "Task2.1: Simple Predictions"
+author: "Tom"
+date: "2020-03-04"
+output: html_document
+--- 
+```
+
+````
+**Predictions: Car Distance & Petal length**
+<p style="color:blue">  1.Car Distance Summary <p style="color:blue">
+
+````
+
+```{r echo=FALSE}
+#Print Summary of Data
+
+cars <- read.csv("C:/Users/Thomas S/Documents/Ubiqum/Data Analytics 2/R Tutorial Data/R Tutorial Data Sets/cars.csv")
+
+summary(cars)
+```
+
+````
+<p style="color:blue">  2.Car Distance Prediction <p style="color:blue">
+````
+
+```{r echo=FALSE}
+# Print predictions of distance
+
+cars$name.of.car <- as.factor(cars$name.of.car)
+
+
+names(cars) <-c("namecar", "speedcar","distancecar")
+
+set.seed(123)
+
+trainsize<-round(nrow(cars)*.7)
+
+testsize<-nrow(cars)-trainsize
+
+training_indices<-sample(seq_len(nrow(cars)),size=trainsize)
+trainset<-cars[training_indices,]
+testset<-cars [-training_indices,]
+
+distancebyspeed<-lm(distancecar ~ speedcar, trainset)
+
+Preddistance<-predict(distancebyspeed,testset)
+
+Preddistance
+```
+
+````
+<p style="color:blue">  3. Petal Distance Summary <p style="color:blue">
+````
+
+```{r echo=FALSE}
+# Print summary of data
+
+IrisDataset <- read.csv("C:/Users/Thomas S/Documents/Ubiqum/Data Analytics 2/R Tutorial Data/R Tutorial Data Sets/iris.csv")
+
+summary(iris) 
+```
+
+````
+<p style="color:blue">  4.Petal Length Prediction <p style="color:blue"> 
+````
+
+
+```{r echo=FALSE}
+# Print predictions of petal length
+
+iris$Species <- as.numeric(iris$Species)
+
+set.seed(123)
+
+trainSize <- round(nrow(iris) * 0.7)
+
+testSize <- nrow(iris)-trainSize
+
+set.seed(123)
+
+training_indices<-sample(seq_len(nrow(iris)),size=trainSize)
+
+trainset<-iris[training_indices,]
+
+testset<-iris [-training_indices,]
+
+LinearModel<- lm(Petal.Width ~ Petal.Length, trainset)
+
+prediction<-predict(LinearModel, testset)
+
+prediction
+
+```
+
+
+<p style="color:blue">  3.Petal Length Script Correction  <p style="color:blue"> 
+
+ <p style="color:red">  1.install.packages(readr) </p>
+<p style="color:green"> *Was missing:* **“ “**  Should be: **install.packages("readr")** <p style="color:green">
+
+<p style="color:red">  2.library("readr") </p>
+<p style="color:green"> *Does not need* **“ “** Should be: **library(readr)** <p style="color:green">
+
+<p style="color:red">  3.IrisDataset <- read.csv(iris.csv) </p>
+<p style="color:green"> *Was missing complete directory:*  Should be: **IrisDataset <- read.csv("C:/Users/Thomas S/Documents/Ubiqum/Data Analytics 2/R Tutorial Data/R Tutorial Data Sets/iris.csv")** <p style="color:green">
+
+
+<p style="color:red"> 4.attributes(IrisDataset) <p style="color:red">
+<p style="color:green"> *Seems to work but better without Dataset* Should be: **attributes(iris)** <p style="color:green">
+
+<p style="color:red"> 5.summary(risDataset) <p style="color:red">
+<p style="color:green"> Should be: **summary(iris)** <p style="color:green">
+
+<p style="color:red"> 6.str(IrisDatasets) <p style="color:red">
+<p style="color:green"> Should be: **str(iris)** <p style="color:green">
+
+<p style="color:red"> 7.names(IrisDataset) <p style="color:red">
+<p style="color:green"> Should be: **names(iris)** <p style="color:green">
+
+<p style="color:red"> 8.hist(IrisDataset$Species) <p style="color:red">
+
+<p style="color:green">*need to transform to numeric*
+Should be: **iris$Species <- as.numeric(iris$Species)**
+Should be: **hist(iris$Species)** <p style="color:green">
+
+<p style="color:red"> 9.plot(IrisDataset$Sepal.Length <p style="color:red">
+<p style="color:green"> Should be: **plot(iris$Sepal.Length)** <p style="color:green">
+
+<p style="color:red"> 10.qqnorm(IrisDataset) <p style="color:red">
+
+<p style="color:green"> *Missing what attribute should be plotted as we are interested in petal’s length & width plot these*
+Should be: **qqnorm(iris$Petal.Length)**
+Should be: **qqnorm(iris$Petal.Width)** <p style="color:green">
+
+
+<p style="color:red"> 11.IrisDataset$Species<- as.numeric(IrisDataset$Species) <p style="color:red">
+<p style="color:green"> *Already previously done (need to be just iris)* <p style="color:green">
+
+<p style="color:red"> 12.set.seed(123) <p style="color:red">
+<p style="color:green"> *No mistake found (yet)* <p style="color:green">
+
+<p style="color:red"> 13.trainSize <- round(nrow(IrisDataset) * 0.2) <p style="color:red">
+<p style="color:green"> Should be: **iris (not IrisDataset)**
+*Normally we choose a large percentage of the data for training  use 0.7*
+Should be: **trainSize <- round(nrow(iris) * 0.7)** <p style="color:green">
+
+<p style="color:red"> 14.testSize <- nrow(IrisDataset) – trainset <p style="color:red">
+<p style="color:green"> Should be: **testSize <- nrow(iris)-trainSize** <p style="color:green">
+
+<p style="color:red"> 15.trainSizes <p style="color:red">
+<p style="color:green"> Should be: **trainSize** <p style="color:green">
+
+<p style="color:red"> 16.testSize <p style="color:red">
+<p style="color:green"> Seems correct
+Followed by: **training_indices<-sample(seq_len(nrow(iris)),size=trainSize)**
+Followed by: **set.seed(123)** <p style="color:green">
+
+<p style="color:red"> 17.trainSet <- IrisDataset[training_indices, ] <p style="color:red">
+<p style="color:green"> Should be: **trainset<-iris[training_indices,]** <p style="color:green">
+
+<p style="color:red"> 18.testSet <- IrisDataset[-training_indices, ] <p style="color:red">
+<p style="color:green"> Should be: **testset<-iris [-training_indices,]** <p style="color:green">
+
+<p style="color:red"> 19.set.seed(405) <p style="color:red">
+<p style="color:green"> *Already have in the beginning why need twice?*
+Should be: **set.seed(123)** <p style="color:green">
+
+<p style="color:red"> 20.trainSet <- IrisDataset[training_indices, ] <p style="color:red">
+<p style="color:green"> *Already have above* <p style="color:green">
+
+<p style="color:red"> 21.testSet <- IrisDataset[-training_indices, ] <p style="color:red">
+<p style="color:green"> *Already have above* <p style="color:green">
+
+<p style="color:red"> 22.LinearModel<- lm(trainSet$Petal.Width ~ testingSet$Petal.Length) <p style="color:red">
+<p style="color:green"> Should be: **LinearModel<- lm(Petal.Width ~ Petal.Length, trainset)** <p style="color:green">
+
+<p style="color:red"> 23.summary(LinearModel) <p style="color:red">
+<p style="color:green"> *Seems correct* <p style="color:green">
+
+<p style="color:red"> 24.prediction<-predict(LinearModeltestSet) <p style="color:red">
+<p style="color:green"> Should be: **prediction<-predict(LinearModel, testset)** <p style="color:green">
+
+<p style="color:red"> 25.predictions <p style="color:red">
+<p style="color:green"> *seems correct* <p style="color:green">
+
+
+
+
+
+
+
+
+
